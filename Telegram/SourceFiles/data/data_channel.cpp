@@ -813,7 +813,7 @@ void ChannelData::clearInvitePeek() {
 }
 
 TimeId ChannelData::invitePeekExpires() const {
-	return _invitePeek ? _invitePeek->expires : 0;
+	return 0;
 }
 
 QString ChannelData::invitePeekHash() const {
