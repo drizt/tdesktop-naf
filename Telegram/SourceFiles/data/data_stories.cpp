@@ -8,6 +8,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_stories.h"
 
 #include "api/api_report.h"
+#include "base/options.h"
 #include "base/unixtime.h"
 #include "apiwrap.h"
 #include "core/application.h"
@@ -47,6 +48,14 @@ constexpr auto kPollingViewsPerPage = Story::kRecentViewersMax;
 
 using UpdateFlag = StoryUpdate::Flag;
 
+base::options::toggle DisableStories({
+	.id = kOptionDisableStories,
+	.name = "Disable stories",
+	.description = "Disable whole stories anti-feature.",
+	.defaultValue = true,
+});
+
+
 [[nodiscard]] std::optional<StoryMedia> ParseMedia(
 		not_null<Session*> owner,
 		const MTPMessageMedia &media) {
@@ -76,6 +85,8 @@ using UpdateFlag = StoryUpdate::Flag;
 }
 
 } // namespace
+
+const char kOptionDisableStories[] = "disable-stories";
 
 StoriesSourceInfo StoriesSource::info() const {
 	return {
@@ -426,6 +437,11 @@ Story *Stories::parseAndApply(
 		not_null<PeerData*> peer,
 		const MTPDstoryItem &data,
 		TimeId now) {
+
+	if (DisableStories.value()) {
+		return nullptr;
+	}
+
 	const auto media = ParseMedia(_owner, data.vmedia());
 	if (!media) {
 		return nullptr;

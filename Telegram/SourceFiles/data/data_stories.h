@@ -31,6 +31,8 @@ struct StoryIdDates;
 class Story;
 class StoryPreload;
 
+extern const char kOptionDisableStories[];
+
 struct StoriesIds {
 	base::flat_set<StoryId, std::greater<>> list;
 

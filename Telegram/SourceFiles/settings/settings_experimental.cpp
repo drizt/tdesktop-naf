@@ -20,6 +20,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "core/sandbox.h"
 #include "core/launcher.h"
 #include "chat_helpers/tabbed_panel.h"
+#include "data/data_stories.h";
 #include "dialogs/dialogs_widget.h"
 #include "info/profile/info_profile_actions.h"
 #include "lang/lang_keys.h"
@@ -141,6 +142,7 @@ void SetupExperimental(
 				: rpl::producer<>()));
 	};
 
+	addToggle(Data::kOptionDisableStories);
 	addToggle(ChatHelpers::kOptionTabbedPanelShowOnClick);
 	addToggle(Dialogs::kOptionForumHideChatsList);
 	addToggle(Core::kOptionFractionalScalingEnabled);
