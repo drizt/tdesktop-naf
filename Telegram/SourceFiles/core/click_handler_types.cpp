@@ -330,9 +330,7 @@ void MonospaceClickHandler::onClick(ClickContext context) const {
 	if (const auto controller = my.sessionWindow.get()) {
 		auto &data = controller->session().data();
 		const auto item = data.message(my.itemId);
-		const auto hasCopyRestriction = item
-			&& (!item->history()->peer->allowsForwarding()
-				|| item->forbidsForward());
+		const auto hasCopyRestriction = false;
 		if (hasCopyRestriction) {
 			controller->showToast(item->history()->peer->isBroadcast()
 				? tr::lng_error_nocopy_channel(tr::now)

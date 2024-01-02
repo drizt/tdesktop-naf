@@ -88,14 +88,7 @@ Type Provider::type() {
 }
 
 bool Provider::hasSelectRestriction() {
-	if (_peer->allowsForwarding()) {
-		return false;
-	} else if (const auto chat = _peer->asChat()) {
-		return !chat->canDeleteMessages();
-	} else if (const auto channel = _peer->asChannel()) {
-		return !channel->canDeleteMessages();
-	}
-	return true;
+	return false;
 }
 
 rpl::producer<bool> Provider::hasSelectRestrictionChanges() {
